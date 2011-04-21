@@ -341,6 +341,10 @@
 				RelativePath=".\mainframe.cpp"
 				>
 			</File>
+			<File
+				RelativePath=".\thread.cpp"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -373,6 +377,10 @@
 			</File>
 			<File
 				RelativePath=".\register.h"
+				>
+			</File>
+			<File
+				RelativePath=".\thread.h"
 				>
 			</File>
 		</Filter>

@@ -14,7 +14,7 @@ GUI_MainFrame::GUI_MainFrame( wxWindow* parent, wxWindowID id, const wxString& t
 	this->SetSizeHints( wxSize( 900,700 ), wxSize( 1000,730 ) );
 	this->SetFont( wxFont( wxNORMAL_FONT->GetPointSize(), 70, 90, 92, false, wxEmptyString ) );
 	this->SetBackgroundColour( wxColour( 127, 127, 127 ) );
-
+	
 	wxBoxSizer* bSizer1;
 	bSizer1 = new wxBoxSizer( wxVERTICAL );
 	
@@ -36,7 +36,8 @@ GUI_MainFrame::GUI_MainFrame( wxWindow* parent, wxWindowID id, const wxString& t
 	wxBoxSizer* bSizer101;
 	bSizer101 = new wxBoxSizer( wxVERTICAL );
 	
-	m_listBox21 = new wxListBox( this, wxID_ANY, wxDefaultPosition, wxSize( 240,80 ), 0, NULL, wxLB_ALWAYS_SB ); 
+	bSizer101->SetMinSize( wxSize( 250,-1 ) ); 
+	m_listBox21 = new wxListBox( this, wxID_ANY, wxDefaultPosition, wxSize( 250,80 ), 0, NULL, wxLB_ALWAYS_SB ); 
 	bSizer101->Add( m_listBox21, 1, wxEXPAND, 5 );
 	
 	sbSizer11->Add( bSizer101, 1, wxEXPAND, 5 );
@@ -68,8 +69,8 @@ GUI_MainFrame::GUI_MainFrame( wxWindow* parent, wxWindowID id, const wxString& t
 	wxBoxSizer* bSizer8;
 	bSizer8 = new wxBoxSizer( wxVERTICAL );
 	
-	bSizer8->SetMinSize( wxSize( 240,-1 ) ); 
-	m_listBox4 = new wxListBox( this, wxID_ANY, wxDefaultPosition, wxSize( 240,80 ), 0, NULL, wxLB_ALWAYS_SB ); 
+	bSizer8->SetMinSize( wxSize( 250,-1 ) ); 
+	m_listBox4 = new wxListBox( this, wxID_ANY, wxDefaultPosition, wxSize( 250,80 ), 0, NULL, wxLB_ALWAYS_SB ); 
 	bSizer8->Add( m_listBox4, 1, wxEXPAND, 5 );
 	
 	sbSizer4->Add( bSizer8, 1, wxEXPAND, 5 );
@@ -100,7 +101,7 @@ GUI_MainFrame::GUI_MainFrame( wxWindow* parent, wxWindowID id, const wxString& t
 	wxBoxSizer* bSizer10;
 	bSizer10 = new wxBoxSizer( wxVERTICAL );
 	
-	bSizer10->SetMinSize( wxSize( 240,-1 ) ); 
+	bSizer10->SetMinSize( wxSize( 250,-1 ) ); 
 	m_listBox2 = new wxListBox( this, wxID_ANY, wxDefaultPosition, wxSize( 250,80 ), 0, NULL, wxLB_ALWAYS_SB ); 
 	bSizer10->Add( m_listBox2, 1, wxEXPAND, 5 );
 	
@@ -213,6 +214,9 @@ GUI_MainFrame::GUI_MainFrame( wxWindow* parent, wxWindowID id, const wxString& t
 	m_button61 = new wxButton( this, wxID_ANY, wxT("Start"), wxDefaultPosition, wxDefaultSize, 0 );
 	sbSizer5->Add( m_button61, 0, wxALL, 5 );
 	
+	m_button12 = new wxButton( this, wxID_ANY, wxT("Resume"), wxDefaultPosition, wxDefaultSize, 0 );
+	sbSizer5->Add( m_button12, 0, wxALL, 5 );
+	
 	m_button7 = new wxButton( this, wxID_ANY, wxT("Pause"), wxDefaultPosition, wxDefaultSize, 0 );
 	sbSizer5->Add( m_button7, 0, wxALL, 5 );
 	
@@ -243,6 +247,10 @@ GUI_MainFrame::GUI_MainFrame( wxWindow* parent, wxWindowID id, const wxString& t
 	
 	wxBoxSizer* bSizer24;
 	bSizer24 = new wxBoxSizer( wxVERTICAL );
+	
+	m_staticText1 = new wxStaticText( this, wxID_ANY, wxT("32 Bits Binary to Integer "), wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticText1->Wrap( -1 );
+	bSizer24->Add( m_staticText1, 0, wxALL, 5 );
 	
 	m_listBox8 = new wxListBox( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, 0, NULL, wxLB_ALWAYS_SB ); 
 	bSizer24->Add( m_listBox8, 1, wxALL|wxEXPAND, 5 );
@@ -323,6 +331,7 @@ GUI_MainFrame::GUI_MainFrame( wxWindow* parent, wxWindowID id, const wxString& t
 	// Connect Events
 	m_button21->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( GUI_MainFrame::OnALUReset ), NULL, this );
 	m_button6->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( GUI_MainFrame::OnRegisterReset ), NULL, this );
+	m_listBox2->Connect( wxEVT_COMMAND_LISTBOX_SELECTED, wxCommandEventHandler( GUI_MainFrame::OnDMLS ), NULL, this );
 	m_button1->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( GUI_MainFrame::OnDataLoad ), NULL, this );
 	m_button2->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( GUI_MainFrame::OnDataReset ), NULL, this );
 	m_button62->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( GUI_MainFrame::OnControlUnitReset ), NULL, this );
@@ -348,6 +357,7 @@ GUI_MainFrame::~GUI_MainFrame()
 	// Disconnect Events
 	m_button21->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( GUI_MainFrame::OnALUReset ), NULL, this );
 	m_button6->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( GUI_MainFrame::OnRegisterReset ), NULL, this );
+	m_listBox2->Disconnect( wxEVT_COMMAND_LISTBOX_SELECTED, wxCommandEventHandler( GUI_MainFrame::OnDMLS ), NULL, this );
 	m_button1->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( GUI_MainFrame::OnDataLoad ), NULL, this );
 	m_button2->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( GUI_MainFrame::OnDataReset ), NULL, this );
 	m_button62->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( GUI_MainFrame::OnControlUnitReset ), NULL, this );

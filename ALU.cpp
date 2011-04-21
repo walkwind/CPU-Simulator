@@ -35,21 +35,28 @@ void ALU::add (string &a,Register &r1, MainFrame* theFrame){
 	//r1.reg.at(strtol(a.substr(18, 6).c_str(), NULL, 2)) = IntToBinary(reg3);
 };
 
-void ALU::or (string a,Register &r1, MainFrame* theFrame){
+void ALU::or (string &a,Register &r1, MainFrame* theFrame){
 	theFrame->OnDelay(1);
 	string temp1 = "Control Unit is performing OR";
 	theFrame->OnCuInitialize(temp1);
 	string temp2 = "You have sent the 32-bit string below to be decoded at the ALU:";
 	theFrame->OnCuALU(temp2, a);
+
+	string temp=a;
+	for (int i=1;i<32;i++)
+	{
 	};
-void ALU::and (string a,Register &r1, MainFrame* theFrame){
+	};
+
+void ALU::and (string &a,Register &r1, MainFrame* theFrame){
 	theFrame->OnDelay(1);
 	string temp1 = "Control Unit is performing AND";
 	theFrame->OnCuInitialize(temp1);
 	string temp2 = "You have sent the 32-bit string below to be decoded at the ALU:";
 	theFrame->OnCuALU(temp2, a);
 	};
-void ALU::sub (string a,Register &r1, MainFrame* theFrame){
+
+void ALU::sub (string &a,Register &r1, MainFrame* theFrame){
 	theFrame->OnDelay(1);
 	string temp1 = "Control Unit is performing SUB";
 	theFrame->OnCuInitialize(temp1);
@@ -61,7 +68,8 @@ void ALU::sub (string a,Register &r1, MainFrame* theFrame){
 	int reg3 =  strtol(reg1.c_str(), NULL, 2)-strtol(reg2.c_str(), NULL, 2);
 	r1.reg.at(strtol(a.substr(18, 6).c_str(), NULL, 2)) = IntToBinary(reg3);
 	};
-void ALU::multi (string a,Register &r1, MainFrame* theFrame){
+
+void ALU::multi (string &a,Register &r1, MainFrame* theFrame){
 	theFrame->OnDelay(1);
 	string temp1 = "Control Unit is performing MULTI";
 	theFrame->OnCuInitialize(temp1);
@@ -73,7 +81,8 @@ void ALU::multi (string a,Register &r1, MainFrame* theFrame){
 	int reg3 =  strtol(reg1.c_str(), NULL, 2)*strtol(reg2.c_str(), NULL, 2);
 	r1.reg.at(strtol(a.substr(18, 6).c_str(), NULL, 2)) = IntToBinary(reg3);
 	};
-void ALU::div (string a,Register &r1, MainFrame* theFrame){
+
+void ALU::div (string &a,Register &r1, MainFrame* theFrame){
 	theFrame->OnDelay(1);
 	string temp1 = "Control Unit is performing DIV";
 	theFrame->OnCuInitialize(temp1);

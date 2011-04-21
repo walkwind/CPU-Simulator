@@ -1,4 +1,7 @@
 #include "mainframe.h"
+#include "wx/log.h"
+
+
 
 MainFrame::MainFrame( wxWindow* parent )
 :
@@ -15,7 +18,6 @@ void MainFrame::OnQuit( wxCommandEvent& event )
 void MainFrame::OnDelay(int t)
 {
 	clock_t endwait;
-	while (pa == true) {};
 	if (de)
 	{
 		endwait = clock () + t * CLK_TCK ;
@@ -44,7 +46,6 @@ void MainFrame::OnOpen( wxCommandEvent& event )
 
 void MainFrame::OnStart( wxCommandEvent& event )
 {
-	pa=false;
 	m_listBox41->Select(m_listBox41->Append("The CPU has started"));
 
 	// GIF animation
@@ -57,7 +58,13 @@ void MainFrame::OnStart( wxCommandEvent& event )
 
 void MainFrame::OnStart2()
 {
-	cu.initialize(this->dm,this->reg,this->cu,this->im,this->alu, this);
+
+	cpu = CreateThread();
+    if ( cpu->Run() != wxTHREAD_NO_ERROR )
+    {
+        wxLogError(wxT("Can't start thread!"));
+    }
+//	cu.initialize(this->dm,this->reg,this->cu,this->im,this->alu, this);
 }
 
 void MainFrame::OnCuInitialize( const wxString &string )
@@ -72,12 +79,17 @@ void MainFrame::OnCuProgramCount( const wxString &string )
 
 void MainFrame::OnPause( wxCommandEvent& event )
 {
-	pa=true;
+	if (cpu)         // does the thread exist?
+        {
+            if (cpu->Pause() != wxTHREAD_NO_ERROR )
+                wxLogError("Can't pause the thread!");
+        }
 	m_listBox41->Select(m_listBox41->Append("The CPU is paused"));
 }
 
 void MainFrame::OnStop( wxCommandEvent& event )
 {
+	cpu->Delete();
 	m_listBox41->Select(m_listBox41->Append("The CPU has stopped"));
 
 	// Stop everything
@@ -195,4 +207,13 @@ void MainFrame::OnDemoSpeed( wxCommandEvent& event )
 {
 	de=true;
 	m_listBox41->Select(m_listBox41->Append("The CPU is running at demo speed"));
+}
+
+void MainFrame::OnDMLS( wxCommandEvent& event )
+{
+	char buffer [33];
+	int sel = event.GetInt();
+	string te=m_listBox2->GetString(sel);
+	int tem=strtol(te.c_str(), NULL, 2);
+	m_listBox8->Select(m_listBox8->Append(itoa(tem,buffer,10)));
 }
