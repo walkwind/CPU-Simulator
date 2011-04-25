@@ -7,7 +7,7 @@ MainFrame::MainFrame( wxWindow* parent )
 :
 GUI_MainFrame( parent )
 {
-
+	m_animCtrl1->LoadFile(wxString("docs") + wxFileName::GetPathSeparator() + wxString("img") + wxFileName::GetPathSeparator() + "5p.gif"); //Load animation gif.
 }
 
 void MainFrame::OnQuit( wxCommandEvent& event )
@@ -49,7 +49,6 @@ void MainFrame::OnStart( wxCommandEvent& event )
 	m_listBox41->Select(m_listBox41->Append("The CPU has started"));
 
 	// GIF animation
-	m_animCtrl1->LoadFile(wxString("docs") + wxFileName::GetPathSeparator() + wxString("img") + wxFileName::GetPathSeparator() + "left_right.gif");
 	m_animCtrl1->Play();
 
 	// This will call the Control Unit initialize function
@@ -77,6 +76,16 @@ void MainFrame::OnCuProgramCount( const wxString &string )
 	m_listBox421->Select(m_listBox421->Append(string));	
 }
 
+void MainFrame::OnResume( wxCommandEvent& event )
+{
+	if (cpu)         // does the thread exist?
+        {
+            if (cpu->Resume() != wxTHREAD_NO_ERROR )
+                wxLogError("Can't resume the thread!");
+        }
+	m_listBox41->Select(m_listBox41->Append("The CPU is resumed"));
+}
+
 void MainFrame::OnPause( wxCommandEvent& event )
 {
 	if (cpu)         // does the thread exist?
@@ -89,7 +98,11 @@ void MainFrame::OnPause( wxCommandEvent& event )
 
 void MainFrame::OnStop( wxCommandEvent& event )
 {
-	cpu->Delete();
+	if (cpu)         // does the thread exist?
+        {
+            if (cpu->Delete() != wxTHREAD_NO_ERROR )
+                wxLogError("Can't resume the thread!");
+        }
 	m_listBox41->Select(m_listBox41->Append("The CPU has stopped"));
 
 	// Stop everything
@@ -112,6 +125,19 @@ void MainFrame::OnImLoad2()
 {
 	this->im.decode("TextFile1.txt", this);
 }
+
+void MainFrame::OnImOpen( wxCommandEvent& event )
+{
+	m_listBox41->Select(m_listBox41->Append("Loading user Instructions to instruction array"));
+	OnImOpen2();
+}
+
+void MainFrame::OnImOpen2()
+{
+	string filename = wxFileSelector("Choose a file to open", "", "", "" , "Text files (*.txt)|*.txt", 0, 0,-1, -1 );
+	this->im.decode(filename, this);
+}
+
 void MainFrame::OnImLoadDecode( const wxString &string )
 {
 	m_listBox3->Select(m_listBox3->Append(string));	
@@ -159,6 +185,18 @@ void MainFrame::OnDataLoad( wxCommandEvent& event )
 void MainFrame::OnDataLoad2( )
 {
 	this->dm.decode("TextFile2.txt", this);
+}
+
+void MainFrame::OnDataOpen( wxCommandEvent& event )
+{
+	m_listBox41->Select(m_listBox41->Append("Loading user data to Data Memory"));
+	OnDataOpen2();
+}
+
+void MainFrame::OnDataOpen2()
+{
+	string filename = wxFileSelector("Choose a file to open", "", "", "" , "Text files (*.txt)|*.txt", 0, 0,-1, -1 );
+	this->dm.decode(filename, this);
 }
 
 void MainFrame::OnDmLoadDecode( const wxString &string )

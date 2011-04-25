@@ -119,7 +119,7 @@
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
 				AdditionalIncludeDirectories="$(WXWIN)\include;$(WXWIN)\lib\vc_lib\mswd"
-				PreprocessorDefinitions="_MBCS;%(PreprocessorDefinitions);WIN32;__WXMSW__;_WINDOWS;_DEBUG;__WXDEBUG__"
+				PreprocessorDefinitions="WIN32;_DEBUG;__WXMSW__;_WINDOWS;NOPCH"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
 				WarningLevel="3"
@@ -380,6 +380,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\resource.h"
+				>
+			</File>
+			<File
 				RelativePath=".\thread.h"
 				>
 			</File>
@@ -399,6 +403,14 @@
 			</File>
 			<File
 				RelativePath=".\dm.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\GUI_CPU.rc"
+				>
+			</File>
+			<File
+				RelativePath=".\docs\img\icon.ico"
 				>
 			</File>
 			<File
